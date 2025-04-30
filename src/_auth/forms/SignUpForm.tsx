@@ -21,8 +21,20 @@ import { createUserAccount } from "@/lib/appwrite/api";
 // form schema goes out if the form
 
 async function onSubmit(values: z.infer<typeof SignupValidationSchema>) {
-  const newUser = await createUserAccount(values);
-  console.log(newUser, "ali");
+  try {
+    const newUser = await createUserAccount(values);
+    console.log(newUser, "ali");
+
+    if (!newUser) {
+      // Optionally show user feedback here
+      return;
+    }
+
+    // Proceed to navigate or show success
+  } catch (error) {
+    console.error("Sign-up failed", error);
+    // Optionally show user feedback here
+  }
 }
 const isLoading = true;
 const SignUpForm = () => {
